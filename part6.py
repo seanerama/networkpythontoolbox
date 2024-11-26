@@ -39,26 +39,22 @@ with open('input_3_devices.csv', 'r', encoding='utf-8-sig') as input_file:
                 'port': 22,
             }
 
-            # Try connecting to the device and executing commands
-            try:
-                ssh = ConnectHandler(**cisco_router)
-                print(f"Successfully connected to {ip}")
-                
-                # Initialize the row for this device with the IP address as the first element
-                ip_results = [ip]
-                
-                # Run each command and append the result to the row
-                for command in commands:
-                    result = ssh.send_command(command)
-                    ip_results.append(result.strip())  # Strip any extra whitespace/newlines
-                
-                # Write the results to the CSV file
-                writer.writerow(ip_results)
-                
-                # Disconnect from the device
-                ssh.disconnect()
 
-            except Exception as e:
-                print(f"Failed to connect to {ip}: {str(e)}")
-                # Write an error message in the CSV for each command
-                writer.writerow([ip] + ['Error: ' + str(e)] * len(commands))
+            ssh = ConnectHandler(**cisco_router)
+            print(f"Successfully connected to {ip}")
+            
+            # Initialize the row for this device with the IP address as the first element
+            ip_results = [ip]
+            
+            # Run each command and append the result to the row
+            for command in commands:
+                result = ssh.send_command(command)
+                ip_results.append(result.strip())  # Strip any extra whitespace/newlines
+            
+            # Write the results to the CSV file
+            writer.writerow(ip_results)
+            
+            # Disconnect from the device
+            ssh.disconnect()
+
+
