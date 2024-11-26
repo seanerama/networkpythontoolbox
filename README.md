@@ -1,4 +1,4 @@
-Here's a detailed `README.md` file for your collection of Python scripts designed to teach network engineers:
+
 
 ---
 
