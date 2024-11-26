@@ -31,14 +31,13 @@ def write_output_csv(file_path, header, rows):
         writer.writerows(rows)
 
 # Function to connect to a device and run commands
-def connect_and_run_commands(ip, user, pwd, commands):
+def connect_and_run_commands(ip, commands):
     # Define the connection parameters for the device
     cisco_router = {
         'device_type': 'cisco_ios',
         'host': ip,
-        'username': user,
-        'password': pwd,
-        'secret': pwd,
+        'username': username,
+        'password': password,
         'port': 22,
     }
     # Attempt to connect and run commands
@@ -69,7 +68,7 @@ def main(input_csv, output_csv):
     # Step 2: Collect results for all devices
     results = []
     for ip in devices:
-        result_row = connect_and_run_commands(ip, username, password, commands)
+        result_row = connect_and_run_commands(ip, commands)
         results.append(result_row)
     
     # Step 4: Write the results to an output CSV
