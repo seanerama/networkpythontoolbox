@@ -34,8 +34,8 @@ Ensure Python 3.8 or higher is installed on your system. Download it [here](http
 ### 2. **Clone the Repository**
 Clone this repository to your local machine:
 ```bash
-git clone https://github.com/yourusername/pythonnetworktoolbox.git
-cd pythonnetworktoolbox
+git clone https://github.com/seanerama/networkpythontoolbox.git
+cd networkpythontoolbox
 ```
 
 ### 3. **Set Up a Virtual Environment**
