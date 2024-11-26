@@ -20,6 +20,8 @@ venv/
 env/
 ENV/
 .venv/
+network-toolbox/
+
 
 # Ignore IDEs and editors
 .vscode/
