@@ -1,0 +1,5 @@
+IP,show clock,show ver | i Last reload reason:
+192.168.1.1,,
+192.168.10.1,,
+192.168.20.1,,
+Add as many IPS as you'd like. the more the better, we are trying to show the speed concurrent.futures gives us. 
