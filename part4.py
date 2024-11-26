@@ -4,37 +4,40 @@ import os
 
 load_dotenv()
 
-
 device_type = "cisco_ios"
 username = os.getenv("USERNAME")    
 password = os.getenv("PASSWORD")    
-host = '192.168.1.1'                
 
-# A list of commands we want to send to the device
+#now a list of devices
+hosts = ['192.168.1.1', '192.168.10.1', '192.168.20.1']              
+
 commands = [
     "show clock",
     "show ver | i Last reload reason:"
 ]
 
-ssh = ConnectHandler(
-    device_type=device_type,
-    host=host,
-    username=username,
-    password=password
-)
 
-# Let's prepare a variable to store the results of all commands.
-results = ""
+# Outer loop: Iterates through each host in the 'hosts' list
+for host in hosts:
+     # Connect to the current host in the loop
+    ssh = ConnectHandler(
+        device_type=device_type,
+        host=host,  # Use the current host from the list
+        username=username,
+        password=password
+    )
 
-# Using a 'for loop' to send multiple commands
-# The 'for loop' cycles through each item in the 'commands' list, one at a time.
-for command in commands:
-    # Send the current command to the device and get the output.
-    output = ssh.send_command(command)
-    # Append the output to the 'results' variable, adding a newline for readability.
-    results += f"Command: {command}\n{output}\n\n"
+    results = "" # Clear results for each device
 
-# Print the combined results of all commands.
-print(results)
+    # Inner loop: Iterates through each command for the current device
+    for command in commands:
+        output = ssh.send_command(command)
+        results += f"Command: {command}\n{output}\n\n"
+
+    # Print results for the current device
+    # The 'f' before the quotes makes this an f-string, allowing us to insert variables directly into the string.
+    # `{host}` dynamically inserts the value of the current device's IP into the output.
+    # `{results}` inserts the collected command outputs for that device.
+    print(f"Results for device {host}:\n{results}")
 
 ssh.disconnect()
