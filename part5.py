@@ -1,6 +1,8 @@
 from netmiko import ConnectHandler
 from dotenv import load_dotenv
 import os
+#import the csv toolbox
+import csv
 
 load_dotenv()
 
@@ -8,36 +10,62 @@ device_type = "cisco_ios"
 username = os.getenv("USERNAME")    
 password = os.getenv("PASSWORD")    
 
-#now a list of devices
-hosts = ['192.168.1.1', '192.168.10.1', '192.168.20.1']              
+commands = [
+    "show clock",
+    "show ver | i Last reload reason:"
+]
+
+# File paths
+ip_file = "ips.txt"  # Text file containing a list of IPs, one per line
+output_file = "command_results.csv"  # CSV file to save the command results
+
+#Open the txt file
+with open(ip_file, "r") as file:
+    # Create an empty list to store the IP addresses
+    ips = []
+
+    # Read each line from the file
+    for line in file:
+        # Remove leading/trailing spaces or newline characters
+        stripped_line = line.strip()
+        
+        # If the line is not empty, add it to the list
+        if stripped_line:
+            ips.append(stripped_line)
 
 commands = [
     "show clock",
     "show ver | i Last reload reason:"
 ]
 
+# Open the CSV file for writing
+with open(output_file, mode="w", newline="") as csvfile:
+    # Create a CSV writer object
+    csv_writer = csv.writer(csvfile)
+    
+    # Write the header row
+    csv_writer.writerow(["IP Address", "Command", "Output"])
 
-# Outer loop: Iterates through each host in the 'hosts' list
-for host in hosts:
-     # Connect to the current host in the loop
-    ssh = ConnectHandler(
-        device_type=device_type,
-        host=host,  # Use the current host from the list
-        username=username,
-        password=password
-    )
+    # Iterate through each IP address
+    for ip in ips:
 
-    results = "" # Clear results for each device
+        # Connect to the device
+        ssh = ConnectHandler(
+            device_type=device_type,
+            host=ip,
+            username=username,
+            password=password
+        )
 
-    # Inner loop: Iterates through each command for the current device
-    for command in commands:
-        output = ssh.send_command(command)
-        results += f"Command: {command}\n{output}\n\n"
+        # Execute each command and write results to the CSV
+        for command in commands:
+            output = ssh.send_command(command)
+            # Write the results as a new row in the CSV
+            csv_writer.writerow([ip, command, output])
 
-    # Print results for the current device
-    # The 'f' before the quotes makes this an f-string, allowing us to insert variables directly into the string.
-    # `{host}` dynamically inserts the value of the current device's IP into the output.
-    # `{results}` inserts the collected command outputs for that device.
-    print(f"Results for device {host}:\n{results}")
+        # Disconnect from the device
+        ssh.disconnect()
 
-ssh.disconnect()
+
+# Inform the user where the results were saved
+print(f"Results saved to {output_file}")

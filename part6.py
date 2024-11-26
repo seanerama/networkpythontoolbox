@@ -6,8 +6,8 @@ import os
 load_dotenv()
 
 device_type = "cisco_ios"
-username = os.getenv("USERNAME")    
-password = os.getenv("PASSWORD")    
+username = os.getenv("USERNAME9")    
+password = os.getenv("PASSWORD9")    
 
 # Open the input CSV file that contains the IP addresses and commands
 with open('input_3_devices.csv', 'r', encoding='utf-8-sig') as input_file:

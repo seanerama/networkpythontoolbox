@@ -5,8 +5,8 @@ import os
 load_dotenv()
 
 device_type = "cisco_ios"
-username = os.getenv("USERNAME")    
-password = os.getenv("PASSWORD")    
+username = os.getenv("USERNAME9")    
+password = os.getenv("PASSWORD9")    
 
 #now a list of devices
 hosts = ['192.168.1.1', '192.168.10.1', '192.168.20.1']              

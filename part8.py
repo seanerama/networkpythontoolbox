@@ -6,8 +6,8 @@ import os
 load_dotenv()
 
 device_type = "cisco_ios"
-username = os.getenv("USERNAME")    
-password = os.getenv("PASSWORD")    
+username = os.getenv("USERNAME9")    
+password = os.getenv("PASSWORD9")    
 
 # Function to read the input CSV file and extract IPs and commands
 def read_input_csv(file_path):
