@@ -1,0 +1,61 @@
+# Ignore OS-generated files
+.DS_Store
+Thumbs.db
+
+# Ignore logs and temporary files
+*.log
+*.tmp
+*.swp
+
+# Ignore Python files
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.egg-info/
+*.eggs/
+
+# Ignore virtual environment
+venv/
+env/
+ENV/
+.venv/
+
+# Ignore IDEs and editors
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# Ignore Node.js dependencies
+node_modules/
+npm-debug.log*
+
+# Ignore build and package directories
+dist/
+build/
+*.egg
+*.egg-info/
+
+# Ignore Docker-related files
+*.env
+.env.*
+*.pid
+*.tar
+*.sock
+
+# Ignore compiled code
+*.class
+*.o
+*.out
+
+# Ignore coverage reports
+coverage/
+*.coverage
+*.lcov
+.cache/
+
+# Ignore miscellaneous
+*.bak
+*.orig
+*.tmp
